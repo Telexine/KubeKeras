@@ -18,9 +18,5 @@ install:
   - docker build -t  keras-web-app .
   - docker run -p 8080:8080 -d  keras-web-app
 script:
-  - echo Test Keras Colorize Backend Service 
-  - echo ===================================
   - docker ps | grep  keras-color-svc
-  - echo Test Frontend Service
-  - echo ===================================
   - docker ps | grep  keras-web-app
