@@ -4,3 +4,19 @@ before_install:
 cache:
   directories:
     - "node_modules"
+
+sudo: required
+services:
+  - docker
+install:
+  - docker build -t  telexine/keras-web-app -f docker/frontend .
+  - docker build -t  telexine/keras-color-svc -f docker/keras-color-svc/Dockerfile .
+  - docker run -d -p 127.0.0.1:5000:5000 --name keras-color-svc keras-color-svc 
+  - docker run -d -p 127.0.0.1:8080:8080 --name keras-web-app keras-web-app 
+script:
+  - echo Test Keras Colorize Backend Service 
+  - echo ===================================
+  - docker ps | grep  keras-color-svc
+  - echo Test Frontend Service
+  - echo ===================================
+  - docker ps | grep  keras-web-app
