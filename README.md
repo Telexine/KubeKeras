@@ -1,4 +1,4 @@
-# KubeKeras
+# KubeKeras [![Build Status](https://travis-ci.org/Telexine/KubeKeras.svg?branch=master?branch=master)](https://travis-ci.org/Telexine/KubeKeras})
 
 description 
 
