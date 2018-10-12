@@ -1,0 +1,1 @@
+docker build -t . telexine/keras-color-svc 
