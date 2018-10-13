@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: keras-web-app
-          image: telexine/keras-web-app
+          image: telexine/keras-web-app:latest
           ports:
             - containerPort: 8080
               name: http

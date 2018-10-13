@@ -4,12 +4,13 @@ metadata:
   name: keras-web-app
   labels:
     name: keras-web-app
-    app: demo
+    app: demo 
 spec:
   selector:
     name: keras-web-app 
   type: NodePort
   ports:
    - port: 80
+     name: web
      targetPort: 8080
      protocol: TCP
