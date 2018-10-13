@@ -1,17 +1,22 @@
 'use strict';
 var request = require('request');
 const express = require('express');
-
+var path = require('path'),
+bodyParser = require('body-parser')
 // Constants
-const PORT = 8080;
+const PORT = 8888;
 const HOST = '0.0.0.0';
+
 
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('Hello world v2\n');
+  res.send('Hello world v3\n');
 });
 
+app.use(express.static('public'));
+app.use(bodyParser.json());
+ 
 
 app.post('/colorize', (req, res) => {
   let data = {
