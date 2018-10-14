@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/croppie.css" />
+  
+</head>
+<body>
+
+  <nav>
+    <div class="nav-wrapper deep-purple darken-3">
+      <a href="#!" class="brand-logo"><i style="padding-left:5px" class="material-icons">palette</i>Colorize!</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <input type="file" class="filepond scale-transition scale-out">
+      <div id="Panel">
+      <br><br>
+      <h1 class="header center purple-text">Let's AI do it for You</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">By utilizing power of Machine Learning</h5>
+      </div>
+      <div class="row center">
+         <a id="upload-button" class="btn-large waves-effect waves-light green">Upload</a>
+      </div>
+      <br><br>
+    </div>
+    
+    </div>
+  </div>
+
+
+  <div class="container con2">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+            <h5 class="center">Speeds up development</h5>
+
+            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">User Experience Focused</h5>
+
+            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Easy to work with</h5>
+
+            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer deep-purple darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="static/js/croppie.js"></script>
+  <!--<script src="static/js/rx.lite.dom.js"></script>  -->
+  <!-- Load FilePond library -->
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+  <!-- Turn all file input elements into ponds -->
+ 
+<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+
+  <script>
+      FilePond.parse(document.body);
+      FilePond.setOptions({
+          server: {
+            process:(fieldName, file, metadata, load, error, progress, abort) => {
+
+
+            // fieldName is the name of the input field
+            // file is the actual file object to send
+            const formData = new FormData();
+            formData.append("image", file, file.name);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', '/colorize');
+
+            // Should call the progress method to update the progress to 100% before calling load
+            // Setting computable to false switches the loading indicator to infinite mode
+            request.upload.onprogress = (e) => {
+                progress(e.lengthComputable, e.loaded, e.total);
+            };
+
+            // Should call the load method when done and pass the returned server file id
+            // this server file id is then used later on when reverting or restoring a file
+            // so your server knows which file to return without exposing that info to the client
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 300) {
+                    // the load method accepts either a string (id) or an object
+                    load(request.responseText);
+                }
+                else {
+                    // Can call the error method if something is wrong, should exit after
+                    error('oh no');
+                }
+            };
+
+            request.send(formData);
+            
+            // Should expose an abort method so the request can be cancelled
+            return {
+                abort: () => {
+                    // This function is entered if the user has tapped the cancel button
+                    request.abort();
+
+                    // Let FilePond know the request has been cancelled
+                    abort();
+                }
+            };
+          }
+      }
+  });
+
+
+
+
+  $("#upload-button").bind({   click: function() {
+    $('#Panel').addClass(' scale-transition scale-out');
+    $('.filepond').addClass(' scale-in');
+    $('.con2').addClass(' scale-transition scale-out')
+ 
+  }});
+  $(function(){
+
+// Turn input element into a pond
+$('.my-pond').filepond();
+$('.my-pond').filepond('allowMultiple', false);
+  // Turn input element into a pond
+  $('.my-pond').on('FilePond:addfile', function(e) {
+        console.log('file added event', e);
+    });
+
+
+ 
+  
+  });
+  
+  
+  
+  </script>
+  </body>
+</html>
