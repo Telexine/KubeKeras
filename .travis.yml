@@ -16,7 +16,7 @@ install:
   - cd ..
   - cd node
   - docker build -t keras-node-svc .
-  - docker run -p 8888:8888 -d  keras-node-svc
+  - docker run -p 8888:8888 -d   keras-node-svc
 script:
-  - docker ps | grep  keras-color-svc
+  - docker run -p 5000:5000 -d keras-color-svc
   - docker ps | grep  keras-node-svc
