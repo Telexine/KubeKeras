@@ -125,6 +125,7 @@
   <script src="static/js/croppie.js"></script>
   <!--<script src="static/js/rx.lite.dom.js"></script>  -->
   <!-- Load FilePond library -->
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
   <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
   <!-- Turn all file input elements into ponds -->
  
@@ -132,7 +133,12 @@
 
   <script>
       FilePond.parse(document.body);
+    
+
       FilePond.setOptions({
+          allowImageResize: true,
+          imagePreviewMinHeight : 150,
+          imageResizeTargetWidth: 300,
           server: {
             process:(fieldName, file, metadata, load, error, progress, abort) => {
 

@@ -1,16 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: keras-node-svc
+  labels:
+    app: demo
+spec:
+  selector:
+    matchLabels:
+      app: demo
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+      - name: keras-node-svc
+        image: telexine/keras-node-svc:latest
+        ports:
+        - containerPort: 8088
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: keras-node-svc
-  labels:
-    name: keras-node-svc
-    app: demo 
 spec:
+  type: LoadBalancer
   selector:
-    name: keras-node-svc
-  type: NodePort
+    app: keras-node-svc
   ports:
-   - port: 8888
-     name: keras-node-svc
-     targetPort: 8888
-     protocol: TCP
+  - port: 8088
