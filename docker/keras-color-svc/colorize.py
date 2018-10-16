@@ -14,35 +14,66 @@ import scipy
 from PIL import Image
 import numpy as np
 from keras_contrib.layers.normalization import InstanceNormalization
+import tensorflow as tf
+global model
+model = load_model('./models/gen_model.h5')
+model.load_weights('./models/gen_weights.h5')
+global graph 
+graph = tf.get_default_graph()
 
+
+def imread(path):
+        return scipy.misc.imread(path, mode='RGB').astype(np.float)
+
+def imprep(path) : 
+        c = imread(path)
+        c = scipy.misc.imresize(c, (128, 128))
+        c = np.array(c)/125.5 - 1.#edges
+        c = np.expand_dims(c, axis=0)
+        return  c
+
+# END keras 
 
 app.config['upload'] = "upload"
-
-
+app.config['conv'] = "conv"
 @app.route('/')
 def hello():
     return 'Hello Container World!'
 
 @app.route('/gen',methods =  ['POST'])
 def gen():
-    print("hello")
+    print("got request")
     if request.method == 'POST':
         file = request.files['file']
         if file :
             print '**found file', file.filename
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['upload'], filename))
-            # for browser, add 'redirect' function on top of 'url_for'
-            print(url_for('uploaded_file',
-                                    filename=filename))
-            return url_for('uploaded_file',
-                                    filename=filename)
+
+            
+            im =imprep("upload/"+filename)
+ 
+ 
+        with graph.as_default():
+                colorize = model.predict(im)
+         
+
+                scipy.misc.imsave('conv/color-'+file.filename, np.concatenate((colorize )))
+
+                # for browser, add 'redirect' function on top of 'url_for'
+                ori = url_for('uploaded_file',
+                                        filename=filename)
+                return ori+',conv/color-'+file.filename
 
         return 'Error'
 
 @app.route('/upload/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['upload'],
+                               filename)
+@app.route('/conv/<filename>')
+def file(filename):
+    return send_from_directory(app.config['conv'],
                                filename)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
