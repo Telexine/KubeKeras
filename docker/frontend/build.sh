@@ -1,2 +1,2 @@
-docker build -t  telexine/keras-web-app . &&
-docker push  telexine/keras-web-app 
+docker build -t  telexine/keras-vue-frontend . &&
+docker push  telexine/keras-vue-frontend
