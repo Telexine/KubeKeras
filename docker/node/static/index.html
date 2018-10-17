@@ -10,11 +10,11 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
   <link rel="stylesheet" href="static/css/croppie.css" />
-  
+  <link rel="stylesheet" href="static/css/animate.css" />
 </head>
 <body>
 
-  <nav>
+  <nav id="navbar">
     <div class="nav-wrapper deep-purple darken-3">
       <a href="#!" class="brand-logo"><i style="padding-left:5px" class="material-icons">palette</i>Colorize!</a>
       <ul class="right hide-on-med-and-down">
@@ -27,7 +27,7 @@
   </nav>
 
   <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
+    <div class="container con1">
         <input type="file" class="filepond scale-transition scale-out">
       <div id="Panel">
       <br><br>
@@ -117,13 +117,19 @@
       </div>
     </div>
   </footer>
-
+  <style>
+  
+  .progress{margin: 0.5rem 0 1rem 0;} 
+  
+  </style>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="static/js/croppie.js"></script>
-  <!--<script src="static/js/rx.lite.dom.js"></script>  -->
+  <script src="node_modules/rx/dist/rx.lite.js"></script> 
+  <script src="node_modules/rx-dom/dist/rx.dom.js"></script> 
+
   <!-- Load FilePond library -->
   <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
   <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
@@ -149,30 +155,56 @@
             formData.append("image", file, file.name);
 
             const request = new XMLHttpRequest();
-            request.open('POST', '/colorize');
+            request.open('POST', '/upload');
 
-            // Should call the progress method to update the progress to 100% before calling load
-            // Setting computable to false switches the loading indicator to infinite mode
             request.upload.onprogress = (e) => {
                 progress(e.lengthComputable, e.loaded, e.total);
+                
             };
 
-            // Should call the load method when done and pass the returned server file id
-            // this server file id is then used later on when reverting or restoring a file
-            // so your server knows which file to return without exposing that info to the client
             request.onload = function() {
                 if (request.status >= 200 && request.status < 300) {
                     // the load method accepts either a string (id) or an object
                     load(request.responseText);
+                    console.log(request.responseText); // uploads/xxx.jpeg
+                    //console.log()
+                    let imgUrl = request.responseText
+                    //generate 
+                    Rx.DOM.post('/result', { filepath: imgUrl })
+                    .subscribe(
+                      function (data) {
+                        console.log(data);
+                      },
+                      function (err) {
+                        // Log the error
+                      }
+                    );
+
+
+
                 }
                 else {
                     // Can call the error method if something is wrong, should exit after
                     error('oh no');
                 }
             };
-
+            
             request.send(formData);
             
+              
+            request.onloadend = function(){
+                    // load Animation 
+                    $('.con1').removeClass('scale-in').addClass(' scale-transition    scale-out');
+                    $('#navbar').append(`<div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                          `)
+                    $('#index-banner').css("padding-top","0").addClass(' scale-transition    scale-out');
+                    $('.con1').remove();
+                    $('.con2').remove();
+                    $('.footer-copyright').css("height","50em")
+
+            }
             // Should expose an abort method so the request can be cancelled
             return {
                 abort: () => {
@@ -186,7 +218,7 @@
           }
       }
   });
-
+   
 
 
 

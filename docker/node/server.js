@@ -17,14 +17,37 @@ app.use('/static',express.static('static'));
 app.use('/node_modules',express.static('node_modules'));
 app.use('/css',express.static('node_modules/materialize-css/dist/css'));
 app.use('/js',express.static('node_modules/materialize-css/dist/js'));
+app.use('/uploads',express.static('uploads'));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/static/index.html'));
 });
 
 var upload = multer({ dest: 'uploads/' })
 
+app.post('/result',(req,res) =>{
+  path = req.body.filepath;
+  console.log(path)
 
-app.post('/colorize',upload.single('image') ,(req, res,next) => {
+  return
+  var formData = {
+    file: fs.createReadStream(path)
+  };
+
+  let img
+  request.post({url:'http://127.0.0.1:5000/gen', formData: formData}, function(err, httpResponse, body) {
+    if (err) {
+      return console.error('upload failed:', err);
+    }
+   
+    img = body.split(",")
+    
+    console.log('Upload successful!  Server responded with:', body);
+  });
+  res.status(200).send(img);
+
+});
+
+app.post('/upload',upload.single('image') ,(req, res,next) => {
  
 
 
@@ -66,18 +89,24 @@ app.post('/colorize',upload.single('image') ,(req, res,next) => {
       if (err) throw err;
       console.log('stats: ' + JSON.stringify(stats));
 
+ return res.status(200).send(newfn);
+
+
 
   var formData = {
     file: fs.createReadStream(newfn)
   };
-  
+  let img
   request.post({url:'http://127.0.0.1:5000/gen', formData: formData}, function(err, httpResponse, body) {
     if (err) {
       return console.error('upload failed:', err);
     }
+    console.log(body)
+    img = body.split(",")
+    
     console.log('Upload successful!  Server responded with:', body);
   });
-  res.status(200).send("ok");
+  res.status(200).send(img);
   /*
 
   });
