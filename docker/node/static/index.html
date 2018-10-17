@@ -170,18 +170,19 @@
                     //console.log()
                     let imgUrl = request.responseText
                     //generate 
-                    Rx.DOM.post('/result', { filepath: imgUrl })
-                    .subscribe(
-                      function (data) {
-                        console.log(data);
-                      },
-                      function (err) {
-                        // Log the error
-                      }
-                    );
-
-
-
+                    let xhr = new XMLHttpRequest();
+                    
+                    xhr.open('POST', '/result');
+                     
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {//Call a function when the state changes.
+                        if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                            // Request finished. Do processing here.
+                            // success
+                        }
+                    }
+                    
+                    xhr.send("filepath="+imgUrl)
                 }
                 else {
                     // Can call the error method if something is wrong, should exit after

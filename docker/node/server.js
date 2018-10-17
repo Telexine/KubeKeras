@@ -25,12 +25,12 @@ app.get('/', (req, res) => {
 var upload = multer({ dest: 'uploads/' })
 
 app.post('/result',(req,res) =>{
-  path = req.body.filepath;
-  console.log(path)
+  let filepath = req.body.filepath ;
+  console.log( req.body)
 
-  return
+ 
   var formData = {
-    file: fs.createReadStream(path)
+    file: fs.createReadStream(filepath)
   };
 
   let img
