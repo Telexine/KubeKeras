@@ -17,8 +17,8 @@ from keras_contrib.layers.normalization import InstanceNormalization
 import tensorflow as tf
 import cv2
 global model
-model = load_model('./models/gen_model.h5')
-model.load_weights('./models/gen_weights.h5')
+model = load_model('./models/gen_model2.h5')
+model.load_weights('./models/gen_weights2.h5')
 global graph 
 graph = tf.get_default_graph()
 

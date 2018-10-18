@@ -140,7 +140,7 @@
   <script>
       FilePond.parse(document.body);
     
-
+      backenURL ="http://localhost:5000";
       FilePond.setOptions({
           allowImageResize: true,
           imagePreviewMinHeight : 150,
@@ -260,8 +260,8 @@ $('.my-pond').filepond('allowMultiple', false);
                 <h6 class="col s12 light">Line sketch</h5>
               </div>
               <div class="header col s6 light">
-              <h5 class="header col s12 light">Converted</h5>
-                <img src="${url2}" style="    max-width: 250px; max-height: 250px;"  alt="Converted"><br>
+              <h5 class="header col s12 light">Generated Filter</h5>
+                <img src="${url2}" style="    max-width: 250px; max-height: 250px;"  alt="Generated"><br>
                 <h6 class="col s12 light">Colorize by AI</h5>
               </div>
               <div class="col s12 ">
