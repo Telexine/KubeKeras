@@ -15,6 +15,7 @@ from PIL import Image
 import numpy as np
 from keras_contrib.layers.normalization import InstanceNormalization
 import tensorflow as tf
+import cv2
 global model
 model = load_model('./models/gen_model.h5')
 model.load_weights('./models/gen_weights.h5')
@@ -50,15 +51,17 @@ def gen():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['upload'], filename))
 
-            
+            img= cv2.imread("upload/"+filename)
+            height, width,alp = img.shape
+            print height, width,alp
             im =imprep("upload/"+filename)
- 
+
  
         with graph.as_default():
                 colorize = model.predict(im)
          
-
-                scipy.misc.imsave('conv/color-'+file.filename, np.concatenate((colorize )))
+                color =scipy.misc.imresize( np.concatenate(colorize),(height,width))
+                scipy.misc.imsave('conv/color-'+file.filename,  color)
 
                 # for browser, add 'redirect' function on top of 'url_for'
                 ori = url_for('uploaded_file',

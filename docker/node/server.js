@@ -36,14 +36,18 @@ app.post('/result',(req,res) =>{
   let img
   request.post({url:'http://127.0.0.1:5000/gen', formData: formData}, function(err, httpResponse, body) {
     if (err) {
+      res.status(405).send(err);
       return console.error('upload failed:', err);
     }
    
     img = body.split(",")
     
     console.log('Upload successful!  Server responded with:', body);
+    res.status(200).send(body);
+    ///upload/497e3f9a7b6bec86e51e1d0644ad55b2.jpeg,conv/color-497e3f9a7b6bec86e51e1d0644ad55b2.jpeg
+
   });
-  res.status(200).send(img);
+  //res.status(200).send(img);
 
 });
 

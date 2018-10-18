@@ -16,7 +16,7 @@
 
   <nav id="navbar">
     <div class="nav-wrapper deep-purple darken-3">
-      <a href="#!" class="brand-logo"><i style="padding-left:5px" class="material-icons">palette</i>Colorize!</a>
+      <a href="/" class="brand-logo"><i style="padding-left:5px" class="material-icons">palette</i>Colorize!</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="sass.html"><i class="material-icons">search</i></a></li>
         <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
@@ -167,7 +167,6 @@
                     // the load method accepts either a string (id) or an object
                     load(request.responseText);
                     console.log(request.responseText); // uploads/xxx.jpeg
-                    //console.log()
                     let imgUrl = request.responseText
                     //generate 
                     let xhr = new XMLHttpRequest();
@@ -177,9 +176,12 @@
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function() {//Call a function when the state changes.
                         if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                            // Request finished. Do processing here.
                             // success
-                        }
+                            console.log(this.responseText) ///upload/dd0b27b2afac41852513ed38e7071e89.png,conv/color-dd0b27b2afac41852513ed38e7071e89.png
+                            img = this.responseText.split(",")
+                            clearall() 
+                            openResult(backenURL+img[0],backenURL+"/"+img[1])
+                          }
                     }
                     
                     xhr.send("filepath="+imgUrl)
@@ -238,13 +240,59 @@ $('.my-pond').filepond('allowMultiple', false);
   $('.my-pond').on('FilePond:addfile', function(e) {
         console.log('file added event', e);
     });
-
-
  
   
   });
   
   
+ let clearall = function(){this.$('footer').remove();this.$('.container').remove();this.$('.progress').remove()}
+ let openResult = function(url1,url2){
+
+    $('body').append(`<div class="container  " >  <div class="section no-pad-bot" id="index-banner">
+        <div class="container con1 animate fadeIn ">
+          
+          <div id="Panel">
+    
+          <div class="row center">
+            <div class="header col s6 light">
+              <h5 class="header col s12 light">Original</h5>
+                <img src="${url1}"  style="    max-width: 250px; max-height: 250px;" alt="original">
+                <h6 class="col s12 light">Line sketch</h5>
+              </div>
+              <div class="header col s6 light">
+              <h5 class="header col s12 light">Converted</h5>
+                <img src="${url2}" style="    max-width: 250px; max-height: 250px;"  alt="Converted"><br>
+                <h6 class="col s12 light">Colorize by AI</h5>
+              </div>
+              <div class="col s12 ">
+                  <h5 class="header col s12 light">Merged</h5>
+               <canvas id="canvas"   style="max-width: 500px; max-height: 500px;"></canvas>
+                  <h6 class="col s12 light">Final Image</h5>
+              </div>
+          </div>
+          </div> 
+        </div>`)
+        setTimeout(function(){
+          let canvas = document.getElementById('canvas');
+          
+          var context = canvas.getContext('2d');
+          var img1 = new Image();
+          var img2 = new Image();
+          img1.src = url1;
+          img2.src = url2;
+          canvas.width= img1.width
+          canvas.height = img1.height
+          console.log(img1)
+          context.globalAlpha = 1.0;
+          context.drawImage(img1,0,0);
+        
+
+          context.globalAlpha = 0.7;  
+          context.drawImage(img2,0,0);
+
+}, 500);
+  
+ }
   
   </script>
   </body>
