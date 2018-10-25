@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+  <title>Colorize!</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,10 +18,10 @@
     <div class="nav-wrapper deep-purple darken-3">
       <a href="/" class="brand-logo"><i style="padding-left:5px" class="material-icons">palette</i>Colorize!</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+        <li><a href="#"><i class="material-icons">search</i></a></li>
+        <li><a href="#"><i class="material-icons">view_module</i></a></li>
+        <li><a href="#"><i class="material-icons">refresh</i></a></li>
+        <li><a href="#"><i class="material-icons">more_vert</i></a></li>
       </ul>
     </div>
   </nav>
@@ -86,41 +86,25 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
+          <img src="static/git.png" style="border: black 2px;border-radius: 200px;">
+          <h5 class="white-text">Source / <a class="orange-text text-lighten-3" href="https://github.com/Telexine">Telexine</a></h5>
+          <a  syle=""href="https://github.com/Telexine/colorizeSketch" class="grey-text text-lighten-4"><i class="material-icons">more_horiz</i>colorizeSketch Machine Learning Project </a><br>
+          <a  syle=""href="https://github.com/Telexine/KubeKeras" class="grey-text text-lighten-4"><i class="material-icons">more_horiz</i>Kubernates Keras (This Project)</a>  <img style="border: beige 2px"src="https://camo.githubusercontent.com/a93e5fee7f9d907dffdc58fd6851dac1de13f028/68747470733a2f2f7472617669732d63692e6f72672f54656c6578696e652f4b7562654b657261732e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/Telexine/KubeKeras.svg?branch=master" style="max-width:100%;"><br>
+          <a  syle=""href="https://hub.docker.com/r/telexine/" class="grey-text text-lighten-4"><i class="material-icons">more_horiz</i>DockerHub Repository</a>
+         
         </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
+      
     </div>
     <div class="footer-copyright">
       <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      createdby <a class="orange-text text-lighten-3" href="">Tachid Boonpipat</a>
       </div>
     </div>
   </footer>
   <style>
   
   .progress{margin: 0.5rem 0 1rem 0;} 
-  
+ 
   </style>
 
   <!--  Scripts-->
@@ -139,8 +123,7 @@
 
   <script>
       FilePond.parse(document.body);
-    
-      backenURL ="http://localhost:5000";
+ 
       FilePond.setOptions({
           allowImageResize: true,
           imagePreviewMinHeight : 150,
@@ -180,7 +163,7 @@
                             console.log(this.responseText) ///upload/dd0b27b2afac41852513ed38e7071e89.png,conv/color-dd0b27b2afac41852513ed38e7071e89.png
                             img = this.responseText.split(",")
                             clearall() 
-                            openResult(backenURL+img[0],backenURL+"/"+img[1])
+                            openResult(img[0],img[1])
                           }
                     }
                     

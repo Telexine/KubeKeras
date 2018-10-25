@@ -11,5 +11,7 @@ RUN pip install git+https://www.github.com/keras-team/keras-contrib.git
 
 ADD . /usr/src/app
 EXPOSE 5000
+RUN mkdir -p upload
+RUN mkdir -p conv
 
 CMD [ "python", "colorize.py" ]

@@ -1,6 +1,6 @@
 from flask import Flask,request,url_for, send_from_directory
 from werkzeug.datastructures import ImmutableMultiDict
-import os
+import os,sys
 app = Flask(__name__)
 from werkzeug import secure_filename
 
@@ -34,9 +34,10 @@ def imprep(path) :
         return  c
 
 # END keras 
-
-app.config['upload'] = "upload"
-app.config['conv'] = "conv"
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__)) 
+_IP = "http://localhost:5000"
+app.config['upload'] = os.path.join("upload")
+app.config['conv']  = os.path.join("conv")
 @app.route('/')
 def hello():
     return 'Hello Container World!'
@@ -47,26 +48,23 @@ def gen():
     if request.method == 'POST':
         file = request.files['file']
         if file :
-            print '**found file', file.filename
+            print ('**found file', file.filename)
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['upload'], filename))
-
-            img= cv2.imread("upload/"+filename)
+            img= cv2.imread(os.path.join(app.config['upload'], filename))
             height, width,alp = img.shape
-            print height, width,alp
-            im =imprep("upload/"+filename)
+            #print (height, width,alp)
+            im =imprep(os.path.join(app.config['upload'], filename))
 
  
         with graph.as_default():
                 colorize = model.predict(im)
          
                 color =scipy.misc.imresize( np.concatenate(colorize),(height,width))
-                scipy.misc.imsave('conv/color-'+file.filename,  color)
 
-                # for browser, add 'redirect' function on top of 'url_for'
-                ori = url_for('uploaded_file',
-                                        filename=filename)
-                return ori+',conv/color-'+file.filename
+                scipy.misc.imsave( "./conv/color-"+file.filename,  color)
+               
+                return _IP+"upload/"+file.filename+','+_IP+'conv/color-'+file.filename
 
         return 'Error'
 
