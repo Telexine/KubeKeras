@@ -1,0 +1,77 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 25
+  labels:
+    app: Colorize-backend
+  name: Colorize-backend
+  namespace: default
+  resourceVersion: "26272"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/Colorize-backend
+  uid: 77acb955-d6c3-11e8-825d-42010a94010d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: Colorize-backend
+    spec:
+      containers:
+      - image: telexine/keras-color-svc:latest
+        imagePullPolicy: Always
+        name: keras-color-svc
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  observedGeneration: 25
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: Colorize-backend
+  name: Colorize-backend-service
+  namespace: default
+  resourceVersion: "1139"
+  selfLink: /api/v1/namespaces/default/services/Colorize-backend-service
+  uid: 069bad83-d6c4-11e8-825d-42010a94010d
+spec:
+  clusterIP: 10.96.0.23
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: 5000-to-5000-tcp
+    nodePort: 31527
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: Colorize-backend
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.240.168.99
