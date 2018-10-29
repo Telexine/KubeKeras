@@ -11,20 +11,23 @@ import matplotlib.pyplot as plt
 from keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
 from keras.models import Sequential, load_model
 import scipy
-from PIL import Image
+from PIL import Image,ImageEnhance
 import numpy as np
 from keras_contrib.layers.normalization import InstanceNormalization
 import tensorflow as tf
 import cv2
-global model
+global model,prep
 model = load_model('./models/gen_model2.h5')
 model.load_weights('./models/gen_weights2.h5')
+
+prep = load_model('./models/gen_model2.h5')
+prep.load_weights('./models/gen_prep.h5')
 global graph 
 graph = tf.get_default_graph()
 
 
 def imread(path):
-        return scipy.misc.imread(path, mode='RGB').astype(np.float)
+        return scipy.misc.imfilter(scipy.misc.imfilter(scipy.misc.imread(path, mode='RGB').astype(np.float),ftype='smooth_more'),ftype='smooth')
 
 def imprep(path) : 
         c = imread(path)
@@ -35,7 +38,7 @@ def imprep(path) :
 
 # END keras 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__)) 
-_IP = "http://localhost:5000"
+_IP = "http://localhost:5000/"
 app.config['upload'] = os.path.join("upload")
 app.config['conv']  = os.path.join("conv")
 @app.route('/')
@@ -58,12 +61,18 @@ def gen():
 
  
         with graph.as_default():
+                
+                prep2 = prep.predict(im)
+                im=im/2 + prep2 /2
                 colorize = model.predict(im)
-         
                 color =scipy.misc.imresize( np.concatenate(colorize),(height,width))
-
+                color = scipy.ndimage.median_filter(color,3 );
+                 
                 scipy.misc.imsave( "./conv/color-"+file.filename,  color)
-               
+                img = Image.open( "./conv/color-"+file.filename)
+                converter = ImageEnhance.Color(img)
+                img2 = converter.enhance(2)
+                img2.save("./conv/color-"+file.filename)
                 return _IP+"upload/"+file.filename+','+_IP+'conv/color-'+file.filename
 
         return 'Error'
