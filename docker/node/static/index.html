@@ -18,10 +18,7 @@
     <div class="nav-wrapper deep-purple darken-3">
       <a href="/" class="brand-logo"><i style="padding-left:5px" class="material-icons">palette</i>Colorize!</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#"><i class="material-icons">search</i></a></li>
-        <li><a href="#"><i class="material-icons">view_module</i></a></li>
-        <li><a href="#"><i class="material-icons">refresh</i></a></li>
-        <li><a href="#"><i class="material-icons">more_vert</i></a></li>
+        <li><a href="/"><i class="material-icons">refresh</i></a></li>
       </ul>
     </div>
   </nav>
@@ -86,7 +83,7 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <img src="static/git.png" style="border: black 2px;border-radius: 200px;">
+          <img  src="static/git.png" style="border: black 2px;border-radius: 200px;max-width: 250px;width: 25%">
           <h5 class="white-text">Source / <a class="orange-text text-lighten-3" href="https://github.com/Telexine">Telexine</a></h5>
           <a  syle=""href="https://github.com/Telexine/colorizeSketch" class="grey-text text-lighten-4"><i class="material-icons">more_horiz</i>colorizeSketch Machine Learning Project </a><br>
           <a  syle=""href="https://github.com/Telexine/KubeKeras" class="grey-text text-lighten-4"><i class="material-icons">more_horiz</i>Kubernates Keras (This Project)</a>  <img style="border: beige 2px"src="https://camo.githubusercontent.com/a93e5fee7f9d907dffdc58fd6851dac1de13f028/68747470733a2f2f7472617669732d63692e6f72672f54656c6578696e652f4b7562654b657261732e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/Telexine/KubeKeras.svg?branch=master" style="max-width:100%;"><br>
@@ -104,7 +101,20 @@
   <style>
   
   .progress{margin: 0.5rem 0 1rem 0;} 
- 
+  .container{
+    width:100%!important;
+    margin:0!important;
+    padding: 0!important;
+    max-width: 100%!important;
+              }
+  body{ 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    }
+  .img_result{width:100%;max-width: 250px}
+
+
   </style>
 
   <!--  Scripts-->
@@ -239,17 +249,17 @@ $('.my-pond').filepond('allowMultiple', false);
           <div class="row center">
             <div class="header col s6 light">
               <h5 class="header col s12 light">Original</h5>
-                <img src="${url1}"  style="    max-width: 250px; max-height: 250px;" alt="original">
+                <img class="img_result" src="${url1}"  style="    max-width: 250px; max-height: 250px;" alt="original">
                 <h6 class="col s12 light">Line sketch</h5>
               </div>
               <div class="header col s6 light">
               <h5 class="header col s12 light">Generated Filter</h5>
-                <img src="${url2}" style="    max-width: 250px; max-height: 250px;"  alt="Generated"><br>
+                <img class="img_result" src="${url2}" style="    max-width: 250px; max-height: 250px;"  alt="Generated"><br>
                 <h6 class="col s12 light">Colorize by AI</h5>
               </div>
               <div class="col s12 ">
                   <h5 class="header col s12 light">Merged</h5>
-               <canvas id="canvas"   style="max-width: 500px; max-height: 500px;"></canvas>
+               <canvas id="canvas"  class="img_result"  style="max-width: 500px; max-height: 500px;"></canvas>
                   <h6 class="col s12 light">Final Image</h5>
               </div>
           </div>
