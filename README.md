@@ -1,7 +1,8 @@
 # KubeKeras [![Build Status](https://travis-ci.org/Telexine/KubeKeras.svg?branch=master)](https://travis-ci.org/Telexine/KubeKeras)
 
-description 
-
+![Screenshot](https://github.com/Telexine/KubeKeras/blob/master/s1.png)
+![Screenshot](https://github.com/Telexine/KubeKeras/blob/master/s2.png)
+![Screenshot](https://github.com/Telexine/KubeKeras/blob/master/s3.png)
 ## Setup Kubernates
 
 ### 1. Install kubectl
