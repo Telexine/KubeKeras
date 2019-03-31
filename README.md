@@ -21,9 +21,9 @@ brew install  kubectl
 ```
 kubectl config current-context docker-for-desktop
 
-kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
 
-kubectl get pod --namespace=kube-system
+kubectl get pod --namespace=kube-system | grep kubernetes-dashboard
 
 * from get pod
 kubectl port-forward *${kubernetes-dashboard-xxxxxxxx-rtsvm} 8334:8443 --namespace=kube-system
