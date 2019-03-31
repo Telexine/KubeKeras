@@ -16,6 +16,8 @@ brew install  kubectl
 ```
 
 ### 2. create dashboard
+
+< Must Enable kube in docker before this >
 ```
 kubectl config current-context docker-for-desktop
 
