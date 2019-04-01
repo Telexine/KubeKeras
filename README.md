@@ -22,15 +22,18 @@ brew install  kubectl
 kubectl config current-context docker-for-desktop
 
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+ 
 
-kubectl get pod --namespace=kube-system | grep kubernetes-dashboard
-
-* from get pod
-kubectl port-forward *${kubernetes-dashboard-xxxxxxxx-rtsvm} 8334:8443 --namespace=kube-system
+kubectl apply -f dashboard-adminuser.yaml
 
 ```
+#### Now we need to find token we can use to log in. Execute following command:
 
-Wait untill It's ready then go to https://localhost:8443
+```kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')```
+
+Now copy the token and paste it into Enter token field on log in screen. 
+ 
+```http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/```
 
 ### 3. Deploy  
 Move to directory kubernates/access/
