@@ -1,19 +1,19 @@
 apiVersion: "extensions/v1beta1"
 kind: "Deployment"
 metadata:
-  name: "Colorize-web"
+  name: "colorize-web"
   namespace: "default"
   labels:
-    app: "Colorize-web"
+    app: "colorize-web"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "Colorize-web"
+      app: "colorize-web"
   template:
     metadata:
       labels:
-        app: "Colorize-web"
+        app: "colorize-web"
     spec:
       containers:
       - name: "keras-node-svc"
@@ -22,14 +22,14 @@ spec:
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "Colorize-web"
+  name: "colorize-web"
   namespace: "default"
   labels:
-    app: "Colorize-web"
+    app: "colorize-web"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "Colorize-web"
+    name: "colorize-web"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
   maxReplicas: 2
@@ -44,22 +44,22 @@ kind: Service
 metadata:
   creationTimestamp: 2018-10-23T11:57:22Z
   labels:
-    app: Colorize-web
-  name: Colorize-web-service
+    app: colorize-web
+  name: colorize-web-service
   namespace: default
   resourceVersion: "2591"
-  selfLink: /api/v1/namespaces/default/services/Colorize-web-service
+  selfLink: /api/v1/namespaces/default/services/colorize-web-service
   uid: cca26ca9-d6ba-11e8-97d9-42010a940068
 spec:
   clusterIP: 10.96.0.22
   externalTrafficPolicy: Cluster
   ports:
   - nodePort: 30174
-    port: 80
+    port: 8080
     protocol: TCP
     targetPort: 8888
   selector:
-    app: Colorize-web
+    app: colorize-web
   sessionAffinity: None
   type: LoadBalancer
 status:

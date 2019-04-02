@@ -5,17 +5,17 @@ metadata:
     deployment.kubernetes.io/revision: "1"
   generation: 25
   labels:
-    app: Colorize-backend
-  name: Colorize-backend
+    app: colorize-backend
+  name: colorize-backend
   namespace: default
   resourceVersion: "26272"
-  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/Colorize-backend
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/colorize-backend
   uid: 77acb955-d6c3-11e8-825d-42010a94010d
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Colorize-backend
+      app: colorize-backend
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -25,7 +25,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: Colorize-backend
+        app: colorize-backend
     spec:
       containers:
       - image: telexine/keras-color-svc:latest
@@ -52,11 +52,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: Colorize-backend
-  name: Colorize-backend-service
+    app: colorize-backend
+  name: colorize-backend-service
   namespace: default
   resourceVersion: "1139"
-  selfLink: /api/v1/namespaces/default/services/Colorize-backend-service
+  selfLink: /api/v1/namespaces/default/services/colorize-backend-service
   uid: 069bad83-d6c4-11e8-825d-42010a94010d
 spec:
   clusterIP: 10.96.0.23
@@ -68,7 +68,7 @@ spec:
     protocol: TCP
     targetPort: 5000
   selector:
-    app: Colorize-backend
+    app: colorize-backend
   sessionAffinity: None
   type: LoadBalancer
 status:
