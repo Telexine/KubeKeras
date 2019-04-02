@@ -34,7 +34,8 @@ app.post('/result',(req,res) =>{
   };
 
   let img     
-  let colorIngressIP = "http://localhost:5000/"
+  //let colorIngressIP = "http://localhost:5000/"
+  let colorIngressIP = "http://colorize-backend-service.default.svc.cluster.local:5000/"
   request.post({url: colorIngressIP+'gen', formData: formData}, function(err, httpResponse, body) {
     if (err) {
       res.status(405).send(err);
