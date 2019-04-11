@@ -1,4 +1,4 @@
-# KubeKeras [![Build Status](https://travis-ci.org/Telexine/KubeKeras.svg?branch=master)](https://travis-ci.org/Telexine/KubeKeras)[![Netlify Status](https://api.netlify.com/api/v1/badges/9436e8ed-d88e-4ba7-a975-efe8f4ae513c/deploy-status)](https://app.netlify.com/sites/colorize-ui/deploys)
+# KubeKeras [![Build Status](https://travis-ci.org/Telexine/KubeKeras.svg?branch=master)](https://travis-ci.org/Telexine/KubeKeras) [![Netlify Status](https://api.netlify.com/api/v1/badges/9436e8ed-d88e-4ba7-a975-efe8f4ae513c/deploy-status)](https://app.netlify.com/sites/colorize-ui/deploys)
 
 Hosted preview UI Only here (no backend)
 https://colorize-ui.netlify.com/
